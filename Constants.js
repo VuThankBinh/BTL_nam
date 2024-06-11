@@ -1,4 +1,4 @@
-const ip = "192.168.1.3";
+const ip = "192.168.1.110";
 export const APIsURL = `http://${ip}:5000`;
 export const ImagesURL = `http://${ip}/img_react`;
 export function formatPrice(number) {

@@ -21,6 +21,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Login from './Login';
 import Register from './Register';
 import Category from './Category';
+import SearchScreen from './SearchScreen';
+import SearchResultScreen from './SearchResultScreen';
+import ThanhToan from './ThanhToan';
+import UserScreen from './UserScreen';
 
 
 const TrangChu = ({ navigation }) => {
@@ -112,6 +116,9 @@ const HomeStack = () => (
         <Stack.Screen name="TrangChu" component={TrangChu} options={{ title: '', headerShown: false, }} />
         <Stack.Screen name="Category" component={Category} options={{ title: '', headerShown: false, }} />
         <Stack.Screen name="Details" component={ProductDetailScreen} options={{ title: '', headerShown: false, }} />
+        <Stack.Screen name="Search" component={SearchScreen} options={{ title: '', headerShown: false, }} />
+        <Stack.Screen name="SearchResult" component={SearchResultScreen} options={{ title: '', headerShown: false, }} />
+        <Stack.Screen name="ThanhToan" component={ThanhToan} options={{ title: '', headerShown: false, }} />
     </Stack.Navigator>
     /* </NavigationContainer> */
 );
@@ -150,7 +157,7 @@ const App = () => {
                 <Tab.Screen name="Offers" component={OffersScreen} options={{ headerShown: false, }} />
                 <Tab.Screen name="Membership" component={MembershipScreen} options={{ headerShown: false, }} />
                 <Tab.Screen name="Cart" component={Cart} options={{ headerShown: false, }} />
-                <Tab.Screen name="Account" component={AccountScreen} options={{ headerShown: false, }} />
+                <Tab.Screen name="UserScreen" component={UserScreen} options={{ headerShown: false, }} />
                 {/* <Tab.Screen name='detail' component={ProductDetailScreen} options={{ headerShown: false, title:''}}></Tab.Screen> */}
             </Tab.Navigator>
         </NavigationContainer>
