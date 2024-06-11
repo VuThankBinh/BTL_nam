@@ -6,7 +6,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet, ScrollView, AppRegistry, FlatList, TouchableOpacity, Image } from 'react-native';
 import { Icon, Card, Button } from 'react-native-elements';
 import { name as appName } from './app.json';
-import Header from './Header';
+import Header from './Header'; 
 import Banner from './Banner';
 import CategoryList from './CategoryList';
 import { ipV4 } from './app.json';
@@ -20,6 +20,7 @@ import AccountScreen from './AccountScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Login from './Login';
 import Register from './Register';
+import Category from './Category';
 
 
 const TrangChu = ({ navigation }) => {
@@ -36,7 +37,7 @@ const TrangChu = ({ navigation }) => {
         try {
             const response = await fetch(ipV4 + `:5000/sanphams/loai/1?pageNumber=1&pageSize=4`);
             const data = await response.json();
-            setProducts1(data);
+            setProducts1(data.products);
             setLoading(false);
         } catch (error) {
             console.error('Error fetching products: ', error);
@@ -48,7 +49,7 @@ const TrangChu = ({ navigation }) => {
         try {
             const response = await fetch(ipV4 + `:5000/sanphams/loai/2?pageNumber=1&pageSize=4`);
             const data = await response.json();
-            setProducts2(data);
+            setProducts2(data.products);
             setLoading(false);
         } catch (error) {
             console.error('Error fetching products: ', error);
@@ -109,6 +110,7 @@ const HomeStack = () => (
         <Stack.Screen name="Login" component={Login} options={{ title: '', headerShown: false, }} />
         <Stack.Screen name="Register" component={Register} options={{ title: '', headerShown: false, }} />
         <Stack.Screen name="TrangChu" component={TrangChu} options={{ title: '', headerShown: false, }} />
+        <Stack.Screen name="Category" component={Category} options={{ title: '', headerShown: false, }} />
         <Stack.Screen name="Details" component={ProductDetailScreen} options={{ title: '', headerShown: false, }} />
     </Stack.Navigator>
     /* </NavigationContainer> */
@@ -157,7 +159,7 @@ const App = () => {
 
 
 export default App;
-AppRegistry.registerComponent(appName, () => Login);
+AppRegistry.registerComponent(appName, () => App);
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,

@@ -1,8 +1,10 @@
 
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image,TouchableOpacity } from 'react-native';
 import { ipV4 as ipV4 } from './app.json'
+import { useNavigation } from '@react-navigation/native';
 const CategoryList = () => {
+  const navigation=useNavigation();
   const [category, setCategory] = useState([]);
   useEffect(() => { GetCategory(); }, []);
   const GetCategory = async () => {
@@ -16,10 +18,12 @@ const CategoryList = () => {
     }
   };
   const renderItem = ({ item }) => (
-    <View style={styles.categoryItem}>
-      <Image source={{ uri: `${ipV4}/img_react/${item.HinhAnhMinhHoa}` }} style={styles.categoryIcon} />
-      <Text style={styles.categoryName}>{item.TenLoai}</Text>
-    </View>
+    <TouchableOpacity onPress={()=> {navigation.navigate('Category',{id: item.MaLoai});}}>
+      <View style={styles.categoryItem}>
+        <Image source={{ uri: `${ipV4}/img_react/${item.HinhAnhMinhHoa}` }} style={styles.categoryIcon} />
+        <Text style={styles.categoryName}>{item.TenLoai}</Text>
+      </View>
+    </TouchableOpacity>
   );
 
   return (

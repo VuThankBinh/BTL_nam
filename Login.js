@@ -25,7 +25,7 @@ const App = () => {
                 // Người dùng đã đăng nhập
                 console.log('User đã đăng nhập:', user.uid);
                 // Thực hiện các hành động cần thiết sau khi đăng nhập, chẳng hạn chuyển hướng đến màn hình chính
-                navigation.navigate('Home');
+                navigation.navigate('TrangChu');
             } else {
                 // Không có người dùng đăng nhập
                 console.log('Không có người dùng đăng nhập');
