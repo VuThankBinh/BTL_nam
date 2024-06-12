@@ -3,10 +3,12 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ipV4 } from './app.json';
+import auth from '@react-native-firebase/auth';
 import { useFocusEffect } from '@react-navigation/native';
 
-const Cart = () => {
+const Cart = ({ navigation }) => {
   const [cartItems, setCartItems] = useState([]);
+  const [selectedItems, setSelectedItems] = useState([]);
   const [shouldRefresh, setShouldRefresh] = useState(false); // Add this state variable
 
   useFocusEffect(
@@ -67,6 +69,30 @@ const Cart = () => {
     </View>
   );
 
+  const handleCheckout = async () => {
+    const selectedCartItems = cartItems;
+    const total = calculateTotal();
+    var userID = ""; // Thay đổi ID người dùng theo thực tế
+    const unsubscribe = auth().onAuthStateChanged(user => {
+      if (user) {
+        userID = user.uid;
+      }});
+    const status = 'Pending'; // Thay đổi trạng thái đơn hàng theo thực tế
+    const cartItemsForAPI = selectedCartItems.map(item => ({
+      id: item.id,
+      quantity: item.quantity,
+      price: item.gia,
+      image: item.anh_dai_dien,
+      name: item.ten_sp
+    }));
+    navigation.navigate('ThanhToan', {
+      userID,
+      total,
+      status,
+      cartItems: cartItemsForAPI
+    });
+  };
+
   const renderItem = ({ item }) => (
     <View style={styles.itemContainer}>
       <Image source={{ uri: ipV4 + '/img_react/' + item.image }} style={styles.image} />
@@ -107,7 +133,7 @@ const Cart = () => {
           ListFooterComponent={() => (
             <View style={styles.totalContainer}>
               <Text style={styles.totalText}>Total: {formatPrice(calculateTotal())}</Text>
-              <TouchableOpacity style={styles.paymentButton}>
+              <TouchableOpacity style={styles.paymentButton} onPress={handleCheckout}>
                 <Text style={styles.paymentButtonText}>Thanh Toán</Text>
               </TouchableOpacity>
             </View>
